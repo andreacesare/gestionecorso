@@ -193,7 +193,9 @@ public class Main {
                 System.out.println(listaDocenti.get(n).getid()+" "+listaDocenti.get(n).getCognome()+" "+listaDocenti.get(n).getNome());
             }
             System.out.println("Inserisci id del docente da inserire: ");
+            scanner.nextLine();
             int id = scanner.nextInt();
+
             Docente doc = listaDocenti.get(id-1);
             CorsoService oCrosoService = new CorsoService();
             oCrosoService.create(nome, dataInserita, durata, doc);
