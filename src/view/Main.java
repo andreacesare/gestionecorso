@@ -1,9 +1,13 @@
 package view;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import model.Discente;
 import model.Docente;
+import service.CorsoService;
 import service.DiscenteService;
 import service.DocenteService;
 
@@ -18,8 +22,9 @@ public class Main {
         int choice1;
         int choice2;
 
+
         do {
-            System.out.println("1.Docente \n 2.Discente \n 3.Exit");
+            System.out.println("1.Docente \n 2.Discente \n 3.Corso \n 4.exit");
             System.out.print("inserisci la tua scelta: ");
             choice1 = scanner.nextInt();
             if (choice1 == 1) {
@@ -91,6 +96,21 @@ public class Main {
                 }
 
             }
+            else if(choice1 == 3) {
+                System.out.println("Classe Corso");
+                System.out.println("***Menu***");
+                System.out.println("1. Crea un nuovo corso");
+                choice2 = scanner.nextInt();
+                switch (choice2) {
+                    case 1:
+                        createCor();
+                        break;
+
+
+                default:
+                    System.out.println("scelta errata. scegliere 1);
+                }
+
         }
         while (choice1 != 3);
         scanner.close();
@@ -138,6 +158,49 @@ public class Main {
 
 
     }
+        private static void createCor() {
+            System.out.println("inserisci nome: ");
+            Scanner scanner = new Scanner(System.in);
+            String nome = scanner.next();
+            LocalDate dataInserita = null;
+
+            // Definire un formato per la data
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            boolean dataValida = false;
+            while (!dataValida) {
+                try {
+                    // Chiedi all'utente di inserire una data
+                    System.out.print("Inserisci una data (formato dd/MM/yyyy): ");
+                    String input = scanner.nextLine();
+
+                    // Converte la stringa in LocalDate
+                    dataInserita = LocalDate.parse(input, formatter);
+                    dataValida = true; // Se non c'è eccezione, la data è valida
+
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato non valido. Riprova.");
+                }
+            }
+
+            System.out.println("inserisci durata corso: ");
+            String durata = scanner.next();
+            System.out.println("inserisci nome del docente: ");
+            String nomedocente = scanner.next();
+            System.out.println("inserisci cognome del docente: ");
+            String cognomedocente = scanner.next();
+            Docente docente = new Docente(nomedocente, cognomedocente);
+            CorsoService oCorsoService = new CorsoService();
+            oCorsoService.create(nome, dataInserita, durata, docente);
+        }
+
+
+
+
+
+
+
+
 
     private static void createDoc() {
         System.out.println("inserisci nome: ");
@@ -202,4 +265,5 @@ public class Main {
         }
 
     }
+}
 
