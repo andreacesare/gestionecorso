@@ -95,8 +95,7 @@ public class Main {
                         System.out.println("scelta errata. scegliere un numero da 1 a 8");
                 }
 
-            }
-            else if(choice1 == 3) {
+            } else if (choice1 == 3) {
                 System.out.println("Classe Corso");
                 System.out.println("***Menu***");
                 System.out.println("1. Crea un nuovo corso");
@@ -107,12 +106,13 @@ public class Main {
                         break;
 
 
-                default:
-                    System.out.println("scelta errata. scegliere 1);
+                    default:
+                        System.out.println("scelta errata. scegliere 1");
                 }
 
+            }
         }
-        while (choice1 != 3);
+        while (choice1 != 4);
         scanner.close();
 
 
@@ -172,7 +172,7 @@ public class Main {
                 try {
                     // Chiedi all'utente di inserire una data
                     System.out.print("Inserisci una data (formato dd/MM/yyyy): ");
-                    String input = scanner.nextLine();
+                    String input = scanner.next();
 
                     // Converte la stringa in LocalDate
                     dataInserita = LocalDate.parse(input, formatter);
@@ -185,13 +185,19 @@ public class Main {
 
             System.out.println("inserisci durata corso: ");
             String durata = scanner.next();
-            System.out.println("inserisci nome del docente: ");
-            String nomedocente = scanner.next();
-            System.out.println("inserisci cognome del docente: ");
-            String cognomedocente = scanner.next();
-            Docente docente = new Docente(nomedocente, cognomedocente);
-            CorsoService oCorsoService = new CorsoService();
-            oCorsoService.create(nome, dataInserita, durata, docente);
+            System.out.println("ecco la lista dei docenti: ");
+
+            DocenteService oDocenteService = new DocenteService();
+            List<Docente> listaDocenti= oDocenteService.readDocente();
+            for(int n = 0; n < listaDocenti.size(); n++){
+                System.out.println(listaDocenti.get(n).getid()+" "+listaDocenti.get(n).getCognome()+" "+listaDocenti.get(n).getNome());
+            }
+            System.out.println("Inserisci id del docente da inserire: ");
+            int id = scanner.nextInt();
+            Docente doc = listaDocenti.get(id-1);
+            CorsoService oCrosoService = new CorsoService();
+            oCrosoService.create(nome, dataInserita, durata, doc);
+
         }
 
 
@@ -265,5 +271,5 @@ public class Main {
         }
 
     }
-}
+
 
