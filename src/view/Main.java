@@ -196,6 +196,7 @@ public class Main {
         String matricola = scanner.next();
         System.out.print("Inserisci data di nascita (formato yyyy-MM-dd): ");
         String data_nascita = scanner.next();
+
         DiscenteService oDiscenteService = new DiscenteService();
         oDiscenteService.create(nome, cognome, matricola, data_nascita);
 
