@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Discente {
@@ -9,6 +10,7 @@ public class Discente {
     private String data_nascita;
 
     private int id;
+    private ArrayList<Corso> corsi;
 
     public void setNome(String nome) {
         this.nome = nome;

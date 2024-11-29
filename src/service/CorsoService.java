@@ -6,6 +6,7 @@ import repository.CorsoRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 
 public class CorsoService {
@@ -19,6 +20,8 @@ public class CorsoService {
         oCorso.setData_inizio(data_inizio);
         oCorso.setDurata(durata);
         oCorso.setDocente(docente);
+        docente.addCorso(oCorso);
+
         CorsoRepository.createCorso(oCorso);
 
     }

@@ -1,10 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Docente {
 
     private String nome;
     private String cognome;
     private int id;
+    private ArrayList<Corso> corsi;
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -27,6 +31,10 @@ public class Docente {
 
     public int getid() {
         return id;
+    }
+    public ArrayList<Corso> getCorsi() { return corsi;}
+    public void addCorso(Corso corso) {
+        corsi.add(corso);
     }
 
 

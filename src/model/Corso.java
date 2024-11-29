@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Corso {
     private String nome;
@@ -8,6 +9,7 @@ public class Corso {
     private String durata;
     private Docente docente;
     private int id;
+    private ArrayList<Discente> discenti;
 
     public String getNome() {
         return this.nome;
@@ -23,6 +25,7 @@ public class Corso {
     public void setId(int id) {this.id = id;}
     public Docente getDocente() {return this.docente;}
     public void setDocente(Docente docente) {this.docente = docente;}
+    public void addDiscente(Discente discente) {discenti.add(discente);}
 
 
 }

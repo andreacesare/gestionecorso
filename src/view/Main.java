@@ -170,18 +170,19 @@ public class Main {
         List<Docente> listaDocente = docenteservice.readDocente();
         for(Corso c:listaCorso){
 
-        int i = 0;
-        while (i < listaCorso.size()) {
-            if(c.getDocente().getid() == listaDocente.get(i).getid()){
-                System.out.println(listaCorso.get(i).getId()+" "+listaCorso.get(i).getNome()+" "+listaCorso.get(i).getData_inizio()+" "+listaCorso.get(i).getDurata()+" " +
-                        " "+listaCorso.get(i).getDocente().getid()+" "+listaDocente.get(i).getNome()+" "+listaDocente.get(i).getCognome());
+
+        boolean x=true;
+        for (Docente d:listaDocente) {
+            if(c.getDocente().getid() == d.getid()){
+                System.out.println(c.getId()+" "+c.getNome()+" "+d.getNome()+" "+d.getCognome());
+                x=false;
 
             }
-            i++;
+
         }
 
 
-        }
+        } System.out.println();
     }
 
 
@@ -205,20 +206,14 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String nome = scanner.next();
             LocalDate dataInserita = null;
-
-            // Definire un formato per la data
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
             boolean dataValida = false;
             while (!dataValida) {
                 try {
-                    // Chiedi all'utente di inserire una data
                     System.out.print("Inserisci una data (formato dd/MM/yyyy): ");
                     String input = scanner.next();
-
-                    // Converte la stringa in LocalDate
                     dataInserita = LocalDate.parse(input, formatter);
-                    dataValida = true; // Se non c'è eccezione, la data è valida
+                    dataValida = true;
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Formato non valido. Riprova.");
@@ -243,6 +238,7 @@ public class Main {
             for(int m = 0; m < listaDocenti.size(); m++){
                 if(listaDocenti.get(m).getid() == id){
                     Docente docente = listaDocenti.get(m);
+
                     CorsoService oCorsoService = new CorsoService();
                     oCorsoService.create(nome, dataInserita, durata, docente);
                 }
@@ -251,14 +247,6 @@ public class Main {
 
 
         }
-
-
-
-
-
-
-
-
 
     private static void createDoc() {
         System.out.println("inserisci nome: ");
