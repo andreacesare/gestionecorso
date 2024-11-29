@@ -217,6 +217,8 @@ public class Main {
 
             System.out.println("inserisci durata corso: ");
             String durata = scanner.next();
+            scanner.nextLine();
+
             System.out.println("ecco la lista dei docenti: ");
 
             DocenteService oDocenteService = new DocenteService();
@@ -227,13 +229,14 @@ public class Main {
 
             System.out.println("Inserisci id del docente da inserire: ");
             int id = scanner.nextInt();
+            scanner.nextLine();
             for(int m = 0; m < listaDocenti.size(); m++){
                 if(listaDocenti.get(m).getid() == id){
                     Docente docente = listaDocenti.get(m);
-                    CorsoService oCrosoService = new CorsoService();
-                    oCrosoService.create(nome, dataInserita, durata, docente);
+                    CorsoService oCorsoService = new CorsoService();
+                    oCorsoService.create(nome, dataInserita, durata, docente);
                 }
-                System.out.println();
+
             }
 
 
