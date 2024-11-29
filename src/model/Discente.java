@@ -10,7 +10,7 @@ public class Discente {
     private String data_nascita;
 
     private int id;
-    private ArrayList<Corso> corsi;
+    private ArrayList<Corso> corsi=new ArrayList();
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -47,5 +47,8 @@ public class Discente {
 
     public String getData_nascita() {
         return data_nascita;
+    }
+    public void aggiungiCorso(Corso corso) {
+        corsi.add(corso);
     }
 }

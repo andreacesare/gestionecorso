@@ -196,10 +196,27 @@ public class Main {
         String matricola = scanner.next();
         System.out.print("Inserisci data di nascita (formato yyyy-MM-dd): ");
         String data_nascita = scanner.next();
+        CorsoService oCorsoService = new CorsoService();
+        List<Corso> listaCorso = oCorsoService.readCorso();
+        int id;
+        do{
+        System.out.println("Ecco la list dei corsi disponibili");
 
-        DiscenteService oDiscenteService = new DiscenteService();
-        oDiscenteService.create(nome, cognome, matricola, data_nascita);
-
+        for (Corso c : listaCorso) {
+            System.out.println(c.getId() + " " + c.getNome() + " Docente:" + c.getDocente().getNome() +" "+c.getDocente().getCognome()+" "+" data inizio:" + c.getData_inizio() + " durata mesi" + c.getDurata());
+        }
+            System.out.println("scrivi -1 se vuoi uscire");
+            System.out.println("Inserisci l'id del corso da seguire");
+            id = scanner.nextInt();
+            scanner.nextLine();
+            for(int i=0;i<listaCorso.size();i++){
+                if(listaCorso.get(i).getId() == id){
+                    Corso corso = listaCorso.get(i);
+                    DiscenteService oDiscenteService = new DiscenteService();
+                    oDiscenteService.create(nome, cognome, matricola, data_nascita,corso);
+                }
+            }
+        }while(id!=-1);
 
     }
         private static void createCor() {

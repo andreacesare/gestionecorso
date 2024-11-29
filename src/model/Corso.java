@@ -9,7 +9,7 @@ public class Corso {
     private String durata;
     private Docente docente;
     private int id;
-    private ArrayList<Discente> discenti;
+    private ArrayList<Discente> discenti=new ArrayList<>();
 
     public String getNome() {
         return this.nome;
@@ -25,7 +25,7 @@ public class Corso {
     public void setId(int id) {this.id = id;}
     public Docente getDocente() {return this.docente;}
     public void setDocente(Docente docente) {this.docente = docente;}
-    public void addDiscente(Discente discente) {discenti.add(discente);}
+    public void aggiungiDiscente(Discente discente) {discenti.add(discente);}
 
 
 }

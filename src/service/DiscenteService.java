@@ -1,9 +1,10 @@
 package service;
 
+import model.Corso;
 import model.Discente;
 import repository.DiscenteRepository;
 
-import java.util.Date;
+
 import java.util.List;
 
 public class DiscenteService {
@@ -11,12 +12,14 @@ public class DiscenteService {
 
 
 
-    public void create(String nome, String cognome, String matricola, String data_nascita) {
+    public void create(String nome, String cognome, String matricola, String data_nascita, Corso corso) {
         Discente oDiscente = new Discente();
         oDiscente.setNome(nome);
         oDiscente.setCognome(cognome);
         oDiscente.setMatricola(matricola);
         oDiscente.setData_nascita(data_nascita);
+        oDiscente.aggiungiCorso(corso);
+        corso.aggiungiDiscente(oDiscente);
         discenteRepository.createDiscente(oDiscente);
     }
 
