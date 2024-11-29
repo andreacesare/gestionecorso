@@ -166,11 +166,21 @@ public class Main {
         System.out.println("ecco la lista corsi: ");
         CorsoService oCorsoService = new CorsoService();
         List<Corso> listaCorso = oCorsoService.readCorso();
+        DocenteService docenteservice = new DocenteService();
+        List<Docente> listaDocente = docenteservice.readDocente();
+        for(Corso c:listaCorso){
+
         int i = 0;
         while (i < listaCorso.size()) {
-            System.out.println(listaCorso.get(i).getId()+" "+listaCorso.get(i).getNome()+" "+listaCorso.get(i).getData_inizio()+" "+listaCorso.get(i).getDurata()+" " +
-                    " "+listaCorso.get(i).getDocente().getid());
+            if(c.getDocente().getid() == listaDocente.get(i).getid()){
+                System.out.println(listaCorso.get(i).getId()+" "+listaCorso.get(i).getNome()+" "+listaCorso.get(i).getData_inizio()+" "+listaCorso.get(i).getDurata()+" " +
+                        " "+listaCorso.get(i).getDocente().getid()+" "+listaDocente.get(i).getNome()+" "+listaDocente.get(i).getCognome());
+
+            }
             i++;
+        }
+
+
         }
     }
 
