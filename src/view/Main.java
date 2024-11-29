@@ -196,7 +196,7 @@ public class Main {
             scanner.nextLine();
             int id = scanner.nextInt();
 
-            Docente doc = listaDocenti.get(id-1);
+            Docente doc = listaDocenti.get(id-2);
             CorsoService oCrosoService = new CorsoService();
             oCrosoService.create(nome, dataInserita, durata, doc);
 
