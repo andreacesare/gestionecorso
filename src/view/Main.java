@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+
+import model.Corso;
 import model.Discente;
 import model.Docente;
 import service.CorsoService;
@@ -99,11 +101,29 @@ public class Main {
                 System.out.println("Classe Corso");
                 System.out.println("***Menu***");
                 System.out.println("1. Crea un nuovo corso");
+                System.out.println("2. Aggiorna un corso");
+                System.out.println("3. Visualizza la lista dei corsi");
+                System.out.println("4. Elimina un corso");
+                System.out.println("9. Exit");
+                System.out.print("inserisci la tua scelta: ");
                 choice2 = scanner.nextInt();
                 switch (choice2) {
                     case 1:
                         createCor();
                         break;
+                    case 2:
+                        updateCor();
+                        break;
+                    case 3:
+                        readCor();
+                        break;
+                    case 4:
+                        deleteCor();
+                        break;
+                    case 9:
+                        System.out.println("exiting");
+                        break;
+
 
 
                     default:
@@ -140,6 +160,18 @@ public class Main {
             i++;
         }
 
+
+    }
+    private static void readCor() {
+        System.out.println("ecco la lista corsi: ");
+        CorsoService oCorsoService = new CorsoService();
+        List<Corso> listaCorso = oCorsoService.readCorso();
+        int i = 0;
+        while (i < listaCorso.size()) {
+            System.out.println(listaCorso.get(i).getId()+" "+listaCorso.get(i).getNome()+" "+listaCorso.get(i).getData_inizio()+" "+listaCorso.get(i).getDurata()+" " +
+                    " "+listaCorso.get(i).getDocente().getid());
+            i++;
+        }
     }
 
 
@@ -192,13 +224,18 @@ public class Main {
             for(int n = 0; n < listaDocenti.size(); n++){
                 System.out.println(listaDocenti.get(n).getid()+" "+listaDocenti.get(n).getCognome()+" "+listaDocenti.get(n).getNome());
             }
-            System.out.println("Inserisci id del docente da inserire: ");
-            scanner.nextLine();
-            int id = scanner.nextInt();
 
-            Docente doc = listaDocenti.get(id-2);
-            CorsoService oCrosoService = new CorsoService();
-            oCrosoService.create(nome, dataInserita, durata, doc);
+            System.out.println("Inserisci id del docente da inserire: ");
+            int id = scanner.nextInt();
+            for(int m = 0; m < listaDocenti.size(); m++){
+                if(listaDocenti.get(m).getid() == id){
+                    Docente docente = listaDocenti.get(m);
+                    CorsoService oCrosoService = new CorsoService();
+                    oCrosoService.create(nome, dataInserita, durata, docente);
+                }
+                System.out.println();
+            }
+
 
         }
 
@@ -240,6 +277,13 @@ public class Main {
 
 
     }
+    private static void deleteCor() {
+        System.out.println("Elimina il corso con id: ");
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        CorsoService oCorsoService = new CorsoService();
+        oCorsoService.delete(id);
+    }
 
     private static void updateDoc() {
         Scanner scanner = new Scanner(System.in);
@@ -268,6 +312,51 @@ public class Main {
         String data_nascita = scanner.next();
             DiscenteService oDiscenteService = new DiscenteService();
             oDiscenteService.update(id, nome, cognome, matricola, data_nascita);
+
+
+        }
+        private static void updateCor() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("inserisci l'id del corso da modificare:");
+        int id = scanner.nextInt();
+        System.out.println("inserisci il nuovo nome:");
+        String nome = scanner.next();
+
+            LocalDate dataInserita = null;
+
+            // Definire un formato per la data
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            boolean dataValida = false;
+            while (!dataValida) {
+                try {
+                    // Chiedi all'utente di inserire una data
+                    System.out.print("Inserisci una nuova data (formato dd/MM/yyyy): ");
+                    String input = scanner.next();
+
+                    // Converte la stringa in LocalDate
+                    dataInserita = LocalDate.parse(input, formatter);
+                    dataValida = true; // Se non c'è eccezione, la data è valida
+
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato non valido. Riprova.");
+                }
+            }
+        String data_inizio = scanner.next();
+        System.out.println("inserisci la nuova durata:");
+        String durata = scanner.next();
+            System.out.println("Inserisci id del docente da inserire: ");
+            int idoc= scanner.nextInt();
+            DocenteService oDocenteService = new DocenteService();
+            List<Docente> listaDocenti= oDocenteService.readDocente();
+            for(int m = 0; m < listaDocenti.size(); m++){
+                if(listaDocenti.get(m).getid() == id){
+                    Docente docente = listaDocenti.get(m);
+                    CorsoService oCrosoService = new CorsoService();
+                    oCrosoService.update(id,nome, dataInserita, durata, docente);
+                }
+                System.out.println();
+            }
 
 
         }
